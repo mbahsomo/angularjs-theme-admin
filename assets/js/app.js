@@ -53,6 +53,11 @@ $script.ready('app',function(){
             title: 'Awal',
             controller: 'AwalController',
             resolve: jsDepsProvider.$get(['assets/app/awal.js'])
+        }).when('/form', {
+            templateUrl: 'assets/app/form.html', 
+            title: 'Form',
+            controller: 'FormController',
+            resolve: jsDepsProvider.$get(['assets/app/form.js'])
         });        
     });
 
