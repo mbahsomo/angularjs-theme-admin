@@ -12,7 +12,11 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
 		$scope.dataRecSelect[0].age=212;
 	};
 
-    $scope.gridOptions = { 
+    $scope.onGridDoubleClick = function(row){
+        console.log(row);
+    };
+
+    $scope.gridOptions = {
     	data: 'dataRec' ,
     	columnDefs: [
     		{field:'name', displayName:'Name', resizable : true}, 
@@ -35,6 +39,7 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
         pagingOptions: $scope.pagingOptions,
         filterOptions: $scope.filterOptions,
         selectedItems: $scope.dataRecSelect
+        /*rowTemplate :'<div ng-dblclick="onGridDoubleClick(row)" ng-style="{\'cursor\': row.cursor}" ng-repeat="col in visibleColumns()" class="ngCell col{{$index}} {{col.cellClass}}" ng-cell></div>',        */
     };
 
     $scope.LoadGrid = function () {
@@ -48,6 +53,7 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
     $scope.ShowAdd = function (){
     	angular.element('#window-modal').modal(
     		{
+                top : '150px',
     			backdrop:false,
     			keyboard:false
     		}

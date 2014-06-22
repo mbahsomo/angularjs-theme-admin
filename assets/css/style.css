@@ -38,21 +38,48 @@
 
 /**/
 .ngHeaderCell{
-	background-color: #F1DF98;
+	background-color: #FFAC84;
+    border-style:groove;
+    /*background-color:#D2D2D2;*/
+    border-width:1px;
+    /*border-style:solid;
+    border-bottom-color:#aaa;
+    border-right-color:#aaa;
+    border-top-color:#ddd;
+    border-left-color:#ddd;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;*/
+}
+
+.ngFooterPanel{
+    border-style:groove;   
+    background-color: #FFAC84;
 }
 
 .ngRow.odd{
-	background-color: #E0F0FC;
+	background-color: #FFE7CE;
 }
 
 .ngRow.even{
-	background-color: white;
+	background-color: #FFD5BF;
 }
 
 .ngRow.selected{
-	background-color: #D9CAD7;
+	background-color: #FF8040;
 }
 
 .modal-dialog{
 	z-index:10000;
+}
+
+/*
+Dialog
+*/
+.modal{
+    top : 45px;
+    left: 202px;
+}
+.modal-content{
+    top: 10px;
 }
