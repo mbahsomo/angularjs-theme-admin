@@ -3,6 +3,9 @@ $script(
         'assets/lib/ng-grid/ng-grid.min.js',
         'assets/lib/angularjs/angular-route.min.js',        
         'assets/lib/angularjs/angular-animate.min.js',
+        'assets/lib/loading/loading-bar.min.js',
+        'assets/lib/toaster/toaster.js',
+        'assets/lib/doevent/doevent.print.js',
         'assets/lib/ng-tree/abn_tree_directive.js'
     ], 
     'app'
@@ -10,7 +13,7 @@ $script(
 
 $script.ready('app',function(){
     
-    var app = angular.module('ThemeApp', ['ngRoute','angularBootstrapNavTree','ngGrid']);
+    var app = angular.module('ThemeApp', ['ngRoute','angularBootstrapNavTree','ngGrid','chieffancypants.loadingBar','toaster']);
     
     app.filter('dateEntry',function myDateFormat($filter){
         return function(text){
@@ -36,8 +39,11 @@ $script.ready('app',function(){
     });
 
   
-    app.config(function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, jsDepsProvider, $httpProvider)
+    app.config(function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, jsDepsProvider, $httpProvider, cfpLoadingBarProvider)
     {
+        cfpLoadingBarProvider.includeSpinner = true;
+        cfpLoadingBarProvider.latencyThreshold = 200;
+        cfpLoadingBarProvider.startSize = 1;
         app.controllerProvider = $controllerProvider;
         app.compileProvider    = $compileProvider;
         app.routeProvider      = $routeProvider;

@@ -1,4 +1,4 @@
-angular.module('ThemeApp').controllerProvider.register('AwalController', function($scope, $http, $document){
+angular.module('ThemeApp').controllerProvider.register('AwalController', function($scope, $http, $document, toaster){
 	$scope.dataRec = [];
 	$scope.dataRecSelect = [];
 
@@ -59,4 +59,36 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
     		}
     	);
     };
+
+    $scope.ShowEdit = function(){
+        angular.element('#window-modal').modal(
+            {
+                top : '150px',
+                backdrop:false,
+                keyboard:false
+            }
+        );  
+    }
+
+    $scope.ShowDelete = function(){
+        if (confirm('Anda yakin menghapus data ini? ')) {
+            angular.forEach($scope.dataRecSelect, function(rowItem) { 
+                $scope.dataRec.splice($scope.dataRec.indexOf(rowItem),1);
+            });
+        }
+    };
+
+    $scope.Reload = function(){
+        $scope.LoadGrid();
+        $scope.gridOptions.ngGrid.buildColumns();
+    }
+
+    $scope.Save = function(){
+        toaster.pop('success', "title", "text");
+        //angular.element('#window-modal').modal('hide');
+    }
+
+    $scope.Print = function(){
+        print_preview('http://lokal.com/latihan/theme-angular/assets/app/awal.js', '');
+    }
 });

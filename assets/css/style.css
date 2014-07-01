@@ -83,3 +83,12 @@ Dialog
 .modal-content{
     top: 10px;
 }
+
+/**
+Toas
+*/
+.toast-top-center {
+    top: 50px;
+    left:58%;
+    margin:0 0 0 -150px;
+}
