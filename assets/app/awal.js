@@ -1,6 +1,7 @@
-angular.module('ThemeApp').controllerProvider.register('AwalController', function($scope, $http, $document, toaster){
+angular.module('ThemeApp').controllerProvider.register('AwalController', function($scope, $http, $document, toaster, $filter){
 	$scope.dataRec = [];
 	$scope.dataRecSelect = [];
+    $scope.fields = {};
     
     $scope.LoadGrid = function () {
         for (a = 0 ; a <100; a++){
@@ -9,6 +10,22 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
     };
 
     $scope.LoadGrid();
+
+    $scope.GetKey = function(){
+        var bil = 0;
+        angular.forEach($scope.dataRec[0], function(value, key) {
+            $scope.fields[key] = '';
+        });
+        //console.log($scope.fields);
+    };
+
+    $scope.GetKey();
+
+    $scope.FilterData = function(){
+        $filter('filter')($scope.dataRec, $scope.fields);
+        console.log($scope.fields);
+        angular.element('#window-filter').modal('hide');
+    };
 
     $scope.gridOptions = {
         data: 'dataRec' ,
