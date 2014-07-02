@@ -1,40 +1,45 @@
-angular.module('ThemeApp').controllerProvider.register('AwalController', function($scope, $http, $document, toaster, $filter){
-	$scope.dataRec = [];
-	$scope.dataRecSelect = [];
+angular.module('ThemeApp').controllerProvider.register('AwalController', function($scope, $http, $document, toaster, $filter) {
+    $scope.dataRec = [];
+    $scope.dataRecOld = [];
+    $scope.dataRecSelect = [];
+    $scope.dataRecSelectOld = [];
     $scope.fields = {};
-    
-    $scope.LoadGrid = function () {
-        for (a = 0 ; a <100; a++){
-            $scope.dataRec[a] = {name:'Data ke ' + a, age : a}; 
+
+    $scope.LoadGrid = function() {
+        for (a = 0; a < 100; a++) {
+            $scope.dataRec[a] = {name: 'Data ke ' + a, age: a};
         }
+        $scope.dataRecOld = $scope.dataRec;
     };
 
     $scope.LoadGrid();
 
-    $scope.GetKey = function(){
-        var bil = 0;
+    $scope.GetKey = function() {
         angular.forEach($scope.dataRec[0], function(value, key) {
             $scope.fields[key] = '';
         });
-        //console.log($scope.fields);
+        
     };
 
     $scope.GetKey();
 
-    $scope.FilterData = function(){
-        $filter('filter')($scope.dataRec, $scope.fields);
-        console.log($scope.fields);
+    $scope.FilterData = function() {
+        $scope.dataRec = $filter('filter')($scope.dataRec, $scope.fields);
         angular.element('#window-filter').modal('hide');
+    };
+    
+    $scope.ResetFilter = function() {
+        $scope.dataRec = $scope.dataRecOld;
     };
 
     $scope.gridOptions = {
-        data: 'dataRec' ,
+        data: 'dataRec',
         columnDefs: [
-            {field:'name', displayName:'Name', resizable : true}, 
-            {field:'age', displayName:'Age', width: '100px', resizable : true},
+            {field: 'name', displayName: 'Name', resizable: true},
+            {field: 'age', displayName: 'Age', width: '100px', resizable: true},
             {
-                displayName:'Event',
-                cellTemplate : '<button class="btn btn-default btn-xs" ng-click="KlikEvnt(row.entity)"><i class="glyphicon glyphicon-pencil"></i> Edit</button>',
+                displayName: 'Event',
+                cellTemplate: '<button class="btn btn-default btn-xs" ng-click="KlikEvnt(row.entity)"><i class="glyphicon glyphicon-pencil"></i> Edit</button>',
                 width: '100px'
             }
         ],
@@ -51,72 +56,73 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
         pagingOptions: $scope.pagingOptions,
         filterOptions: $scope.filterOptions,
         selectedItems: $scope.dataRecSelect
-        /*rowTemplate :'<div ng-dblclick="onGridDoubleClick(row)" ng-style="{\'cursor\': row.cursor}" ng-repeat="col in visibleColumns()" class="ngCell col{{$index}} {{col.cellClass}}" ng-cell></div>',        */
+                /*rowTemplate :'<div ng-dblclick="onGridDoubleClick(row)" ng-style="{\'cursor\': row.cursor}" ng-repeat="col in visibleColumns()" class="ngCell col{{$index}} {{col.cellClass}}" ng-cell></div>',        */
     };
 
-    $scope.KlikEvnt = function(row){
-		console.log(row);
-		row.age=212;
-	};
+    $scope.KlikEvnt = function(row) {
+        console.log(row);
+        row.age = 212;
+    };
 
-	$scope.EditRec = function(){
-		console.log($scope.dataRecSelect);
-		$scope.dataRecSelect[0].age=212;
-	};
+    $scope.EditRec = function() {
+        console.log($scope.dataRecSelect);
+        $scope.dataRecSelect[0].age = 212;
+    };
 
-    $scope.onGridDoubleClick = function(row){
+    $scope.onGridDoubleClick = function(row) {
         console.log(row);
     };
 
-    $scope.ShowAdd = function (){
-    	angular.element('#window-modal').modal(
-    		{
-                top : '150px',
-    			backdrop:false,
-    			keyboard:false
-    		}
-    	);
-    };
-
-    $scope.ShowEdit = function(){
+    $scope.ShowAdd = function() {
         angular.element('#window-modal').modal(
             {
-                top : '150px',
-                backdrop:false,
-                keyboard:false
-            }
-        );  
-    }
-
-    $scope.ShowDelete = function(){
-        if (confirm('Anda yakin menghapus data ini? ')) {
-            angular.forEach($scope.dataRecSelect, function(rowItem) { 
-                $scope.dataRec.splice($scope.dataRec.indexOf(rowItem),1);
-            });
-        }
-    };
-
-    $scope.ShowFilter = function(){
-        angular.element('#window-filter').modal(
-            {
-                top : '150px',
-                backdrop:false,
-                keyboard:false
+                top: '150px',
+                backdrop: false,
+                keyboard: false
             }
         );
     };
 
-    $scope.Reload = function(){
+    $scope.ShowEdit = function() {
+        angular.element('#window-modal').modal(
+            {
+                top: '150px',
+                backdrop: false,
+                keyboard: false
+            }
+        );
+    };
+
+    $scope.ShowDelete = function() {
+        if (confirm('Anda yakin menghapus data ini? ')) {
+            angular.forEach($scope.dataRecSelect, function(rowItem) {
+                $scope.dataRec.splice($scope.dataRec.indexOf(rowItem), 1);
+            });
+        }
+    };
+
+    $scope.ShowFilter = function() {
+        angular.element('#window-filter').modal(
+            {
+                top: '150px',
+                backdrop: false,
+                keyboard: false
+            }
+        );
+    };
+
+    $scope.Reload = function() {
         $scope.LoadGrid();
         $scope.gridOptions.ngGrid.buildColumns();
-    }
+    };
 
-    $scope.Save = function(){
+    $scope.Save = function() {
         toaster.pop('success', "title", "text");
-        //angular.element('#window-modal').modal('hide');
-    }
+        angular.element('#window-modal').modal('hide');
+    };
 
-    $scope.Print = function(){
+    $scope.Print = function() {
         print_preview('http://lokal.com/latihan/theme-angular/assets/app/awal.js', '');
-    }
+    };
+    
 });

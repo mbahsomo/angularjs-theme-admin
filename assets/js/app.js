@@ -1,5 +1,7 @@
 $script(
     [
+        'assets/lib/jquery/jquery-ui.min.js',
+        'assets/lib/bootstrap/js/bootstrap.min.js',
         'assets/lib/ng-grid/ng-grid.min.js',
         'assets/lib/angularjs/angular-route.min.js',        
         'assets/lib/angularjs/angular-animate.min.js',
