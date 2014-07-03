@@ -4,12 +4,14 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
     $scope.dataRecSelect = [];
     $scope.dataRecSelectOld = [];
     $scope.fields = {};
+    $scope.add = true;
 
     $scope.LoadGrid = function() {
         for (a = 0; a < 100; a++) {
             $scope.dataRec[a] = {name: 'Data ke ' + a, age: a};
         }
         $scope.dataRecOld = $scope.dataRec;
+
     };
 
     $scope.LoadGrid();
@@ -18,7 +20,6 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
         angular.forEach($scope.dataRec[0], function(value, key) {
             $scope.fields[key] = '';
         });
-        
     };
 
     $scope.GetKey();
@@ -36,12 +37,12 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
         data: 'dataRec',
         columnDefs: [
             {field: 'name', displayName: 'Name', resizable: true},
-            {field: 'age', displayName: 'Age', width: '100px', resizable: true},
-            {
+            {field: 'age', displayName: 'Age', width: '100px', resizable: true}
+            /*,{
                 displayName: 'Event',
                 cellTemplate: '<button class="btn btn-default btn-xs" ng-click="KlikEvnt(row.entity)"><i class="glyphicon glyphicon-pencil"></i> Edit</button>',
                 width: '100px'
-            }
+            }*/
         ],
         enablePaging: true,
         //headerRowHeight : 60,
@@ -59,10 +60,12 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
                 /*rowTemplate :'<div ng-dblclick="onGridDoubleClick(row)" ng-style="{\'cursor\': row.cursor}" ng-repeat="col in visibleColumns()" class="ngCell col{{$index}} {{col.cellClass}}" ng-cell></div>',        */
     };
 
-    $scope.KlikEvnt = function(row) {
+    
+
+    /*$scope.KlikEvnt = function(row) {
         console.log(row);
         row.age = 212;
-    };
+    };*/
 
     $scope.EditRec = function() {
         console.log($scope.dataRecSelect);
@@ -74,6 +77,17 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
     };
 
     $scope.ShowAdd = function() {
+        /*var grid = $scope.gridOptions.ngGrid;
+        grid.$viewport.scrollTop(grid.rowMap[ $scope.dataRec.length-1] * grid.config.rowHeight);*/
+
+        var rowLen;
+        var e = $scope.$on('ngGridEventData', function() {
+            $scope.gridOptions.selectItem(rowLen-1, true);
+            e();
+        });
+        
+        rowLen = $scope.dataRec.push({});
+
         angular.element('#window-modal').modal(
             {
                 top: '150px',
@@ -84,6 +98,8 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
     };
 
     $scope.ShowEdit = function() {
+        $scope.add = false;
+        angular.copy($scope.dataRecSelect, $scope.dataRecSelectOld);
         angular.element('#window-modal').modal(
             {
                 top: '150px',
@@ -101,6 +117,19 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
         }
     };
 
+    $scope.CancelSave = function(){
+        if ($scope.add){
+            angular.forEach($scope.dataRecSelect, function(rowItem) {
+                $scope.dataRec.splice($scope.dataRec.indexOf(rowItem), 1);
+            });
+        }else{
+            angular.forEach($scope.dataRecSelect, function(rowItem) {
+                angular.copy($scope.dataRecSelectOld[0],$scope.dataRec[$scope.dataRec.indexOf(rowItem)]);
+            });
+        }
+        angular.element('#window-modal').modal('hide');
+    }
+
     $scope.ShowFilter = function() {
         angular.element('#window-filter').modal(
             {
@@ -117,7 +146,11 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
     };
 
     $scope.Save = function() {
-        toaster.pop('success', "title", "text");
+        toaster.pop('success', "Proses Simpan", "Proses Simpan berhasil");
+        if ($scope.add){
+            var grid = $scope.gridOptions.ngGrid;
+            grid.$viewport.scrollTop(grid.rowMap[ $scope.dataRec.length-1] * grid.config.rowHeight);
+        }
         angular.element('#window-modal').modal('hide');
     };
 

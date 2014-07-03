@@ -12,5 +12,8 @@ doeventTools.factory('doeventTools', function($rootScope, $http, $filter) {
         console.log(hasil);
         return hasil;
     };
+    doeventToolsService.setObject= function(objAsal,objTujuan){
+        
+    };
     return doeventToolsService;
 });

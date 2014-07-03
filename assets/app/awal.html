@@ -8,30 +8,38 @@
     <button type="button" class="btn btn-primary btn-sm" ng-click="ResetFilter()"><i class="glyphicon glyphicon-filter"></i> Reset Filter</button>
 </div>
 <div class="gridStyle" ng-grid="gridOptions" ></div>
-
+<!-- Filter Form -->
 <div class="modal fade bootstrap-dialog type-primary" id="window-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title">Add / Edit data</h4>
             </div>
             <div class="modal-body">
-                {{dataRecSelect}}
+            	<form class="form-horizontal" role="form">
+                    <div class="form-group" >
+                        <label for="inputname" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputname" placeholder="Name" ng-model="dataRecSelect[0].name">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputage" class="col-sm-2 control-label">Age</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputage" placeholder="age" ng-model="dataRecSelect[0].age">
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" ng-click="Save()" class="btn btn-primary btn-sm">Save changes</button>
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-folder-open"></span> Close</button>
+                <button type="button" ng-click="CancelSave()" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-folder-open"></span> Close</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<script type="text/javascript">
-    $(".modal").draggable({
-        handle: ".modal-header"
-    });
-</script>
-
+<!-- Filter Form -->
 <div class="modal fade bootstrap-dialog type-primary" id="window-filter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -58,3 +66,8 @@
 </div><!-- /.modal -->
 
 <toaster-container toaster-options="{'time-out': 3000, 'close-button':true,'position-class':'toast-top-center'}"></toaster-container>
+<script type="text/javascript">
+    $(".modal").draggable({
+        handle: ".modal-header"
+    });
+</script>
