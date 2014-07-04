@@ -50,7 +50,7 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
         multiSelect: false,
         enablePinning: true,
         showGroupPanel: true,
-        //jqueryUITheme: true,
+        jqueryUITheme: true,
         showColumnMenu: true,
         showSelectionCheckbox: true,
         totalServerItems: 'totalServerItems',

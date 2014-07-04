@@ -1,0 +1,24 @@
+.ngGroupPanel{
+    background-color: #F5C864;
+}
+
+.ngHeaderCell{
+	background-color: #9BBB59;
+}
+
+.ngFooterPanel{
+    background-color: #9BBB59;
+}
+
+.ngRow.odd{
+	background-color: #EBF1DE;
+}
+
+.ngRow.even{
+	background-color: #FFFFFF;
+}
+
+.ngRow.selected{
+	background-color: #A5CA12;
+
+}
