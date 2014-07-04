@@ -114,6 +114,7 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
             angular.forEach($scope.dataRecSelect, function(rowItem) {
                 $scope.dataRec.splice($scope.dataRec.indexOf(rowItem), 1);
             });
+            $scope.dataRecOld = $scope.dataRec;
         }
     };
 
@@ -152,6 +153,7 @@ angular.module('ThemeApp').controllerProvider.register('AwalController', functio
             grid.$viewport.scrollTop(grid.rowMap[ $scope.dataRec.length-1] * grid.config.rowHeight);
         }
         angular.element('#window-modal').modal('hide');
+        $scope.dataRecOld = $scope.dataRec;
     };
 
     $scope.Print = function() {
